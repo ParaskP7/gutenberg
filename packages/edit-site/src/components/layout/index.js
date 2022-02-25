@@ -16,6 +16,7 @@ import {
  * Internal dependencies
  */
 import NavigationSidebar from '../navigation-sidebar';
+import { GlobalStylesProvider } from '../global-styles/global-styles-provider';
 import { store as editSiteStore } from '../../store';
 
 function Layout( {
@@ -57,23 +58,25 @@ function Layout( {
 		<ShortcutProvider>
 			<SlotFillProvider>
 				<EntityProvider kind="root" type="site">
-					<UnsavedChangesWarning />
-					<InterfaceSkeleton
-						drawer={
-							<NavigationSidebar
-								isDefaultOpen={ isNavigationDefaultOpen }
-								activeTemplateType={ activeTemplateType }
-							/>
-						}
-						notices={ <EditorSnackbars /> }
-						shortcuts={ {
-							previous: previousShortcut,
-							next: nextShortcut,
-						} }
-						{ ...props }
-					/>
-					<Popover.Slot />
-					{ children }
+					<GlobalStylesProvider>
+						<UnsavedChangesWarning />
+						<InterfaceSkeleton
+							drawer={
+								<NavigationSidebar
+									isDefaultOpen={ isNavigationDefaultOpen }
+									activeTemplateType={ activeTemplateType }
+								/>
+							}
+							notices={ <EditorSnackbars /> }
+							shortcuts={ {
+								previous: previousShortcut,
+								next: nextShortcut,
+							} }
+							{ ...props }
+						/>
+						<Popover.Slot />
+						{ children }
+					</GlobalStylesProvider>
 				</EntityProvider>
 			</SlotFillProvider>
 		</ShortcutProvider>
